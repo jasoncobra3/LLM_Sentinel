@@ -1,250 +1,319 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LLM Red Teaming Platform{% endblock %}</title>
 
-{% block title %}LLM Red Teaming Platform - Home{% endblock %}
-{% block nav_home %}active{% endblock %}
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-{% block content %}
-<!-- Hero Section -->
-<div class="row mb-4 fade-in">
-    <div class="col-12">
-        <div class="card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white;">
-            <div class="card-body py-5 px-4">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h1 class="display-5 fw-bold mb-3">
-                            <i class="fas fa-shield-halved me-3" style="color: var(--red-team-color);"></i>
-                            LLM Red Teaming Platform
-                        </h1>
-                        <p class="lead mb-4 text-white-50">
-                            Comprehensive adversarial testing for Large Language Models.
-                            Powered by DeepTeam framework with multi-provider LangChain support.
-                        </p>
-                        <div class="d-flex flex-wrap gap-2 mb-4">
-                            <span class="badge bg-danger px-3 py-2">
-                                <i class="fas fa-bug me-1"></i> {{ vuln_count }} Vulnerabilities
-                            </span>
-                            <span class="badge bg-warning text-dark px-3 py-2">
-                                <i class="fas fa-crosshairs me-1"></i> {{ attack_count }} Attacks
-                            </span>
-                            <span class="badge bg-info px-3 py-2">
-                                <i class="fas fa-shield me-1"></i> {{ framework_count }} Frameworks
-                            </span>
-                            <span class="badge bg-success px-3 py-2">
-                                <i class="fas fa-server me-1"></i> {{ configured_count }}/{{ total_providers }} Providers Ready
-                            </span>
-                        </div>
-                        <div class="d-flex gap-3">
-                            <a href="/attack" class="btn btn-red-team btn-lg">
-                                <i class="fas fa-crosshairs me-2"></i> Launch Attack Lab
-                            </a>
-                            <a href="/dashboard" class="btn btn-outline-light btn-lg">
-                                <i class="fas fa-tachometer-alt me-2"></i> View Dashboard
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center d-none d-md-block">
-                        <div style="font-size: 8rem; opacity: 0.15;">
-                            <i class="fas fa-shield-halved"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Feature Cards -->
-<div class="row mb-4 g-4 fade-in">
-    <div class="col-md-4">
-        <div class="card h-100">
-            <div class="card-header card-header-red">
-                <h5 class="mb-0">
-                    <i class="fas fa-crosshairs text-danger me-2"></i>
-                    Attack Lab
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Launch adversarial attacks against your LLMs with 21 attack strategies including prompt injection, jailbreaking, encoding-based attacks, and more.</p>
-                <ul class="list-unstyled small text-muted">
-                    <li><i class="fas fa-check text-success me-2"></i>16 Single-turn attacks</li>
-                    <li><i class="fas fa-check text-success me-2"></i>5 Multi-turn attacks</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Crescendo & Tree Jailbreaking</li>
-                </ul>
-            </div>
-            <div class="card-footer bg-transparent border-0">
-                <a href="/attack" class="btn btn-red-team w-100">
-                    <i class="fas fa-play me-2"></i> Open Attack Lab
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card h-100">
-            <div class="card-header card-header-blue">
-                <h5 class="mb-0">
-                    <i class="fas fa-tachometer-alt text-primary me-2"></i>
-                    Scan History & Dashboard
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Track all scan runs, monitor results in real-time, and analyze vulnerability patterns across your target models.</p>
-                <ul class="list-unstyled small text-muted">
-                    <li><i class="fas fa-check text-success me-2"></i>Real-time scan tracking</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Historical comparisons</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Vulnerability breakdown</li>
-                </ul>
-            </div>
-            <div class="card-footer bg-transparent border-0">
-                <a href="/dashboard" class="btn btn-target w-100">
-                    <i class="fas fa-chart-line me-2"></i> View Dashboard
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card h-100">
-            <div class="card-header card-header-green">
-                <h5 class="mb-0">
-                    <i class="fas fa-file-alt text-success me-2"></i>
-                    Reports
-                </h5>
-            </div>
-            <div class="card-body">
-                <p>Generate comprehensive reports in PDF, CSV, and JSON formats. Export findings for stakeholders and compliance audits.</p>
-                <ul class="list-unstyled small text-muted">
-                    <li><i class="fas fa-check text-success me-2"></i>PDF executive reports</li>
-                    <li><i class="fas fa-check text-success me-2"></i>CSV data exports</li>
-                    <li><i class="fas fa-check text-success me-2"></i>JSON raw data</li>
-                </ul>
-            </div>
-            <div class="card-footer bg-transparent border-0">
-                <a href="/reports" class="btn btn-success w-100">
-                    <i class="fas fa-download me-2"></i> View Reports
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Supported Providers -->
-<div class="row mb-4 fade-in">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-server me-2"></i> Supported LLM Providers</h5>
-            </div>
-            <div class="card-body">
-                <div class="row g-3" id="providerCards"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- System Status -->
-<div class="row fade-in">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-heartbeat me-2 text-danger"></i> System Status</h5>
-            </div>
-            <div class="card-body" id="systemStatus">
-                <div class="text-center py-3">
-                    <div class="spinner-border spinner-border-sm text-primary me-2"></div>
-                    Checking system health...
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-bolt me-2 text-warning"></i> Quick Start</h5>
-            </div>
-            <div class="card-body">
-                <ol class="mb-0">
-                    <li class="mb-2">
-                        <strong>Configure providers</strong> &mdash;
-                        <a href="/config">Set up API keys</a> for your LLM providers
-                    </li>
-                    <li class="mb-2">
-                        <strong>Launch Attack Lab</strong> &mdash;
-                        <a href="/attack">Select attacker/target models</a>, choose vulnerabilities and attacks
-                    </li>
-                    <li class="mb-2">
-                        <strong>Review results</strong> &mdash;
-                        <a href="/dashboard">View the dashboard</a> for detailed findings
-                    </li>
-                    <li>
-                        <strong>Generate reports</strong> &mdash;
-                        <a href="/reports">Export findings</a> as PDF, CSV, or JSON
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-$(document).ready(function() {
-    // Load providers
-    $.get('/api/providers').done(function(providers) {
-        let html = '';
-        const icons = {
-            openai: 'fa-robot', anthropic: 'fa-brain', azure_openai: 'fa-cloud',
-            google_gemini: 'fa-gem', aws_bedrock: 'fa-aws', huggingface: 'fa-face-smile',
-            groq: 'fa-bolt', deepseek: 'fa-magnifying-glass'
-        };
-        for (const [pid, info] of Object.entries(providers)) {
-            const statusClass = info.configured ? 'text-success' : 'text-muted';
-            const statusIcon = info.configured ? 'fa-check-circle' : 'fa-circle';
-            const icon = icons[pid] || 'fa-server';
-            html += `
-                <div class="col-md-3 col-sm-6">
-                    <div class="card text-center p-3 h-100">
-                        <div class="mb-2">
-                            <i class="fas ${icon} fs-3 ${info.configured ? 'text-primary' : 'text-muted'}"></i>
-                        </div>
-                        <h6 class="mb-1">${info.display_name}</h6>
-                        <small class="${statusClass}">
-                            <i class="fas ${statusIcon} me-1"></i>
-                            ${info.configured ? 'Configured' : 'Not configured'}
-                        </small>
-                    </div>
-                </div>
-            `;
+    <style>
+        :root {
+            --red-team-color: #dc3545;
+            --red-team-dark: #a71d2a;
+            --target-color: #0d6efd;
+            --target-dark: #0a58ca;
+            --bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --card-hover-shadow: 0 6px 24px rgba(0,0,0,0.12);
         }
-        $('#providerCards').html(html);
-    });
 
-    // Load health
-    $.get('/api/health').done(function(data) {
-        $('#systemStatus').html(`
-            <div class="row text-center">
-                <div class="col-4">
-                    <div class="display-6 text-success"><i class="fas fa-check-circle"></i></div>
-                    <small class="text-muted">API Status</small>
-                </div>
-                <div class="col-4">
-                    <div class="display-6 fw-bold text-primary">${data.configured_providers}</div>
-                    <small class="text-muted">Providers Ready</small>
-                </div>
-                <div class="col-4">
-                    <div class="display-6 fw-bold text-danger">${data.vulnerabilities}</div>
-                    <small class="text-muted">Vulnerabilities</small>
-                </div>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+        .navbar-brand .fa-shield-halved { color: var(--red-team-color); }
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.1);
+            color: #fff !important;
+        }
+        .nav-link i { margin-right: 6px; }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .card:hover {
+            box-shadow: var(--card-hover-shadow);
+        }
+        .card-header {
+            background: transparent;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            font-weight: 600;
+        }
+
+        /* Red Team Button */
+        .btn-red-team {
+            background: linear-gradient(135deg, var(--red-team-color) 0%, var(--red-team-dark) 100%);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .btn-red-team:hover {
+            background: linear-gradient(135deg, var(--red-team-dark) 0%, #8b1520 100%);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220,53,69,0.3);
+        }
+
+        /* Target Button */
+        .btn-target {
+            background: linear-gradient(135deg, var(--target-color) 0%, var(--target-dark) 100%);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+        }
+        .btn-target:hover {
+            background: linear-gradient(135deg, var(--target-dark) 0%, #084298 100%);
+            color: #fff;
+        }
+
+        /* Progress Bar */
+        .progress-bar-custom {
+            background: linear-gradient(90deg, var(--red-team-color), #fd7e14);
+        }
+
+        /* Score Badge */
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .score-high { background: rgba(25,135,84,0.12); color: #198754; }
+        .score-medium { background: rgba(255,193,7,0.15); color: #cc9a00; }
+        .score-low { background: rgba(220,53,69,0.12); color: #dc3545; }
+
+        /* Status badges */
+        .status-completed { background-color: #198754; }
+        .status-running { background-color: #0dcaf0; }
+        .status-failed { background-color: #dc3545; }
+        .status-pending { background-color: #6c757d; }
+
+        /* Gradient card headers */
+        .card-header-red {
+            background: linear-gradient(135deg, rgba(220,53,69,0.08) 0%, rgba(220,53,69,0.02) 100%);
+            border-bottom: 2px solid rgba(220,53,69,0.15);
+        }
+        .card-header-blue {
+            background: linear-gradient(135deg, rgba(13,110,253,0.08) 0%, rgba(13,110,253,0.02) 100%);
+            border-bottom: 2px solid rgba(13,110,253,0.15);
+        }
+        .card-header-green {
+            background: linear-gradient(135deg, rgba(25,135,84,0.08) 0%, rgba(25,135,84,0.02) 100%);
+            border-bottom: 2px solid rgba(25,135,84,0.15);
+        }
+
+        /* Table styling */
+        .table th {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6c757d;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: rgba(255,255,255,0.6);
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-shield-halved me-2"></i>
+                LLM Red Teaming Platform
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navMain" aria-controls="navMain"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_home %}{% endblock %}" href="/">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_attack %}{% endblock %}" href="/attack">
+                            <i class="fas fa-crosshairs"></i> Attack Lab
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_custom %}{% endblock %}" href="/custom-attack">
+                            <i class="fas fa-user-secret"></i> Custom Attack
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_dashboard %}{% endblock %}" href="/dashboard">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_reports %}{% endblock %}" href="/reports">
+                            <i class="fas fa-file-alt"></i> Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_config %}{% endblock %}" href="/config">
+                            <i class="fas fa-cog"></i> Configuration
+                        </a>
+                    </li>
+                </ul>
             </div>
-        `);
-    }).fail(function() {
-        $('#systemStatus').html(`
-            <div class="text-center text-danger py-3">
-                <i class="fas fa-exclamation-triangle me-2"></i> System offline
-            </div>
-        `);
-    });
-});
-</script>
-{% endblock %}
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container-fluid px-4 py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-1">
+                <i class="fas fa-shield-halved me-1"></i>
+                LLM Red Teaming Platform &mdash; Powered by
+                <a href="https://github.com/confident-ai/deepteam" target="_blank">DeepTeam</a> &amp;
+                <a href="https://www.langchain.com/" target="_blank">LangChain</a>
+            </p>
+            <small>8 Providers &bull; 31 Vulnerabilities &bull; 21 Attacks &bull; 6 Frameworks &bull; 8 Jailbreak Strategies</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        // Global helpers
+        function showToast(message, type = 'info') {
+            const id = 'toast-' + Date.now();
+            const bgClass = type === 'success' ? 'bg-success' :
+                            type === 'error' ? 'bg-danger' :
+                            type === 'warning' ? 'bg-warning text-dark' : 'bg-info';
+            const html = `
+                <div id="${id}" class="toast align-items-center text-white ${bgClass} border-0"
+                     role="alert" style="position:fixed;top:80px;right:20px;z-index:10000;min-width:300px;">
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                data-bs-dismiss="toast"></button>
+                    </div>
+                </div>`;
+            $('body').append(html);
+            const toast = new bootstrap.Toast(document.getElementById(id), {delay: 4000});
+            toast.show();
+            setTimeout(() => $(`#${id}`).remove(), 5000);
+        }
+
+        function getStatusBadge(status) {
+            const map = {
+                'completed': '<span class="badge status-completed">Completed</span>',
+                'running': '<span class="badge status-running">Running</span>',
+                'failed': '<span class="badge status-failed">Failed</span>',
+                'pending': '<span class="badge status-pending">Pending</span>',
+            };
+            return map[status] || `<span class="badge bg-secondary">${status}</span>`;
+        }
+
+        function getScoreBadgeClass(score) {
+            if (score >= 70) return 'score-high';
+            if (score >= 40) return 'score-medium';
+            return 'score-low';
+        }
+
+        function timeAgo(dateStr) {
+            if (!dateStr) return 'N/A';
+            const diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
+            if (diff < 60) return 'just now';
+            if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+            if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+            return Math.floor(diff / 86400) + 'd ago';
+        }
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
