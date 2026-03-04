@@ -9,9 +9,11 @@
 [![DeepTeam](https://img.shields.io/badge/DeepTeam-3.8+-orange.svg)](https://github.com/confident-ai/deepeval)
 [![LangChain](https://img.shields.io/badge/LangChain-1.2+-green.svg)](https://langchain.com)
 
+
 ---
 
-## 📌 Project Description
+## 📌 Project Description 
+
 
 ### The Challenge
 
@@ -20,6 +22,7 @@ As organizations increasingly adopt Large Language Models (LLMs) for production 
 ### Our Solution
 
 The **LLM Red Teaming Platform** is a comprehensive, production-ready security testing framework designed specifically for Large Language Models. It automates the discovery of vulnerabilities through adversarial red teaming techniques, enabling security researchers, AI engineers, and organizations to identify weaknesses before they can be exploited in production.
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jasoncobra3/LLM_Red_Teaming)
 
 ### Who Is This For?
 
@@ -35,6 +38,8 @@ The **LLM Red Teaming Platform** is a comprehensive, production-ready security t
 - **Production-Ready**: Enterprise-grade with persistence, authentication, and reporting
 - **Extensible Framework**: Modular architecture for custom attacks and integrations
 - **Automated Workflows**: Reduces manual testing effort by 80%+
+
+
 
 ---
 
