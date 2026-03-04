@@ -455,4 +455,4 @@ After recording:
 
 **Last Updated**: February 2026
 
-Need help creating demos? Check out the [Contributing Guidelines](CONTRIBUTING.md) or reach out to the team!
+Need help creating demos? Check out the [Contributing Guidelines](CONTRIBUTING.md) or reach out to the team !
