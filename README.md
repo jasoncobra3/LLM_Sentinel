@@ -42,63 +42,19 @@ The **LLM Red Teaming Platform** is a comprehensive, production-ready security t
 
 ### System Design
 
-The platform follows a **layered microservices architecture** with separation of concerns between presentation, business logic, data access, and external integrations.
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         PRESENTATION LAYER                           │
-│  ┌──────────────────────────┐  ┌─────────────────────────────────┐ │
-│  │   Streamlit Dashboard    │  │      FastAPI Web App            │ │
-│  │   (Interactive UI)       │  │      (REST API + HTML)          │ │
-│  │   - Attack Lab           │  │      - /api/scan                │ │
-│  │   - Results Analytics    │  │      - /api/results             │ │
-│  │   - PDF Reports          │  │      - /api/reports             │ │
-│  └──────────────────────────┘  └─────────────────────────────────┘ │
-└──────────────────────────┬──────────────────────────────────────────┘
-                           │
-┌──────────────────────────┴──────────────────────────────────────────┐
-│                        BUSINESS LOGIC LAYER                          │
-│  ┌─────────────────┐  ┌────────────────┐  ┌────────────────────┐  │
-│  │  Red Team       │  │  LLM Factory   │  │  Attack Registry   │  │
-│  │  Engine         │  │                │  │                    │  │
-│  │  ──────────     │  │  ────────────  │  │  ────────────────  │  │
-│  │  • Orchestration│  │  • Model Setup │  │  • Vulnerabilities │  │
-│  │  • Attack Exec  │  │  • Provider    │  │  • Attack Methods  │  │
-│  │  • Result Parse │  │    Adapters    │  │  • Frameworks      │  │
-│  └─────────────────┘  └────────────────┘  └────────────────────┘  │
-│                                │                                     │
-│  ┌─────────────────────────────┴─────────────────────────────────┐ │
-│  │              Attack Library (100+ Prebuilt Payloads)          │ │
-│  │              Jailbreak Strategies (Custom & Standard)         │ │
-│  └───────────────────────────────────────────────────────────────┘ │
-└──────────────────────────┬──────────────────────────────────────────┘
-                           │
-┌──────────────────────────┴──────────────────────────────────────────┐
-│                      INTEGRATION LAYER                               │
-│  ┌───────────────────────────┐  ┌─────────────────────────────────┐│
-│  │   DeepTeam Framework      │  │   LangChain Integration         ││
-│  │   (Red Teaming Core)      │  │   (Universal LLM Interface)     ││
-│  └───────────────────────────┘  └─────────────────────────────────┘│
-└──────────────────────────┬──────────────────────────────────────────┘
-                           │
-┌──────────────────────────┴──────────────────────────────────────────┐
-│                    EXTERNAL SERVICES LAYER                           │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
-│  │ OpenAI   │  │ Anthropic│  │  Groq    │  │  Google  │  ....      │
-│  │ Azure    │  │  Claude  │  │  Llama   │  │  Gemini  │           │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘           │
-└─────────────────────────────────────────────────────────────────────┘
-                           │
-┌──────────────────────────┴──────────────────────────────────────────┐
-│                       DATA PERSISTENCE LAYER                         │
-│  ┌─────────────────┐  ┌────────────────┐  ┌────────────────────┐  │
-│  │  SQLite DB      │  │  File Logging  │  │  PDF Reports       │  │
-│  │  (Scan History) │  │  (Debug/Audit) │  │  (Output Artifacts)│  │
-│  └─────────────────┘  └────────────────┘  └────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────┘
-```
+#### Architetcture
+![Architecture](docs/uml_diagrams/architecture.png)
+
+#### Flow Diagram
+![Flow Diagram](docs/uml_diagrams/flow_diagram.png)
+
+#### LLM Flow
+![LLM Flow](docs/uml_diagrams/LLM_Flow.png)
 
 
+#### Sequence Diagram
+![Sequence Diagram](docs/uml_diagrams/sequence_diagram.png)
 
 ---
 
@@ -456,32 +412,29 @@ Currently, the project uses manual testing workflows. To validate your setup:
 ## 📸 Screenshots
 
 ### Dashboard
-*Overview of completed scans with metrics and visualizations*
 
-![Dashboard](docs/Screenshots/dashboard.png)
 ![Dashboard Overview](docs/Screenshots/dashboard01.png)
 ![Dashboard Analytics](docs/Screenshots/dashboard02.png)
+![Dashboard](docs/Screenshots/dashboard.png)
 
 ### Configuration
-*Model and provider configuration settings*
 
 ![Configuration Setup](docs/Screenshots/config01.png)
 ![Configuration Options](docs/Screenshots/config02.png)
 
 ### Attack Lab
-*Configure and launch automated security scans*
 
 ![Attack Lab Setup](docs/Screenshots/attacklab01.png)
 ![Attack Lab Execution](docs/Screenshots/attacklab02.png)
 
 ### Custom Attack
-*Create and execute custom attack scenarios*
+
 
 ![Custom Attack Configuration](docs/Screenshots/custom_attack01.png)
 ![Custom Attack Results](docs/Screenshots/custom_attack02.png)
 
 ### PDF Report
-*Professional security assessment reports*
+
 
 ![Report](docs/Screenshots/report.png)
 
